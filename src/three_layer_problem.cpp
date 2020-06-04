@@ -15,9 +15,13 @@ vector<vector<phiFuncType>> generatePhis(NeuralNetwork& network, const MatrixXd&
 
   vector<vector<phiFuncType>> phis;
   int max_iter = serialized? my_input.rows() : 1;
+  
+  // loop through the grids
   for (int i = 0; i < max_level; i++)
   {
     vector<phiFuncType> row_phis;
+
+    // loop through the individual phi values for each grid
     for (int j = 0; j < max_iter; j++)
     {
       // set the training input and target for the nn
@@ -37,6 +41,7 @@ vector<vector<phiFuncType>> generatePhis(NeuralNetwork& network, const MatrixXd&
                           }
                         );
     }
+    
   phis.push_back(row_phis);
   }
 
