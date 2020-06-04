@@ -121,7 +121,7 @@ listOfWeights MGRITSolver::run(listOfWeights w0, const listOfWeights& rhs0, cons
 
    unsigned int iter_num = 0;  // initialize a counter to count the number of iterations MGRIT needs to converge
 
-   // initialize the residual norm
+   // calculate the initial euclidean norm of the residual
    helper.setPhi(phis[current_level]);
    double r0_norm = helper.euclideanNorm(helper.residual(w0, rhs0)); 
    double residual_norm = r0_norm;
@@ -150,6 +150,7 @@ listOfWeights MGRITSolver::run(listOfWeights w0, const listOfWeights& rhs0, cons
       double rho = pow(residual_norm / r0_norm, 1.0 / iter_num);
       cout << "Average Convergence Rate: " << rho << endl;
    }
+   
    return w0;
 }
 
@@ -211,18 +212,4 @@ listOfWeights MGRITSolver::vIteration(listOfWeights w0, const listOfWeights& rhs
    w0 = relaxer.fRelax(w0, rhs0);
 
    return w0;
-}
-
-
-
-// TODO: DELETE!!!
-void MGRITSolver::myPrint(listOfWeights item_to_print)
-{
-   for (int i = 0; i < item_to_print.size(); i++)
-   {
-      for (MatrixXd weight : item_to_print[i])
-      {
-         cout << weight << endl;
-      }
-   }
 }

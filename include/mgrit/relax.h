@@ -13,12 +13,11 @@ class Relax {
 
    private:
 
-      unsigned int m;   // coarsening factor
+      unsigned int m;           // coarsening factor
       vector<phiFuncType> phi;  // phi functions used to do the relaxation
 
    public:
 
-      // class constructor
       Relax(unsigned int my_m, vector<phiFuncType> my_phi);
 
       // getters and setters
@@ -27,7 +26,6 @@ class Relax {
       void setPhi(vector<phiFuncType> my_phi);
       void setM(unsigned int my_m);
 
-      // public methods
       listOfWeights cRelax(listOfWeights weights, const listOfWeights& rhs) const;
       listOfWeights fcfRelax(listOfWeights weights, const listOfWeights& rhs) const;
       listOfWeights fRelax(listOfWeights weights, const listOfWeights& rhs) const;

@@ -10,21 +10,17 @@
 using namespace Eigen;
 using namespace std;
 
-// Neural Network Class
 class NeuralNetwork {
 
    private:
 
-   	// private class data
       float alpha;              // the learning rate of the nn
-      weightType weights;
+      weightType weights;       // weights of the network
 
-      // private methods
       MatrixXd sigmoid(const MatrixXd& x, const bool& derivative) const;
    
    public:
 
-   	// class constructor
       NeuralNetwork(float my_alpha, weightType my_weights);
 
       // getters and setters
@@ -33,8 +29,8 @@ class NeuralNetwork {
       void setAlpha(float my_alpha);
       void setWeights(weightType my_weights);
 
-      // public methods
       void train(const MatrixXd& input, const MatrixXd& target);
+      
 };
 
 #endif

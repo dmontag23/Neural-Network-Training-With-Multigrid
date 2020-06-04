@@ -17,14 +17,11 @@ class MGRITHelper {
 
    public:
 
-      // class constructor
       MGRITHelper(vector<phiFuncType> my_phi);
 
       // getters and setters
       vector<phiFuncType> getPhi() const;
       void setPhi(vector<phiFuncType> my_phi);
-
-      // public methods
 
       // template function must be implemented in the header
       template <typename T> 
@@ -34,11 +31,10 @@ class MGRITHelper {
         transform(first_list.begin(), first_list.end(), second_list.begin(), result.begin(), 
                   [add_or_subtract](weightType w1, weightType w2) 
                   {
-
                     transform(w1.begin(), w1.end(), w2.begin(), w1.begin(), add_or_subtract);
                     return w1;
-
                   });
+
         return result;
       }
 

@@ -84,7 +84,7 @@ vector<vector<phiFuncType>> generatePhis(NeuralNetwork& network, const MatrixXd&
 int main(int argc, char* argv[])
 {
   
-  const int N = 3200;                         // Number of training steps
+  const int N = 6400;                         // Number of training steps
   const int m = 2;                          // Coarsening factor
   const int max_level = 10;                  // The maximum level the MGRIT algorithm recurses to
   const float alpha_b = 0.025;                // The learning rate of the neural network on the fine grid

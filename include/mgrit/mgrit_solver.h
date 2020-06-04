@@ -17,13 +17,13 @@ class MGRITSolver {
 
    private:
 
-      // private class data
       unsigned int current_level = 0;           // keeps track of the current grid level MGRIT is on
       bool display_stats;                       // displays stats about the MGRIT algorithm as it is running
       unsigned int m;                           // coarsening factor
-      unsigned int max_level;                   // denotes the maximum coarse level grid MGRIT will process on
-      vector<vector<phiFuncType>> phis;         // list of phi functions on each grid
+      unsigned int max_level;                   // denotes the maximum coarse level grid MGRIT will recurse to
+      vector<vector<phiFuncType>> phis;         // list of phi functions on each grid level
       
+      // helper classes that assist in implementing the MGRIT algorithm
       MGRITHelper helper;
       MoveGrids mover;
       Relax relaxer;  
@@ -34,10 +34,8 @@ class MGRITSolver {
       Relax makeRelaxObject(const unsigned int& m, const vector<phiFuncType>& phi) const;   
       listOfWeights vIteration(listOfWeights w0, const listOfWeights& rhs0);
 
-
    public:
 
-   	// class constructor
       MGRITSolver(unsigned int my_m, vector<vector<phiFuncType>> my_phis, unsigned int my_max_level, bool my_display_stats = false);
 
       // getters and setters
@@ -50,12 +48,7 @@ class MGRITSolver {
       void setMaxLevel(unsigned int my_max_level);
       void setPhis(vector<vector<phiFuncType>> my_phis);
 
-      // public functions
       listOfWeights run(listOfWeights w0, const listOfWeights& rhs0, const double& tol, const bool& f_cycle);
-
-      //TODO: DELETE!!!
-      void myPrint(listOfWeights item_to_print);
-
 };
 
 #endif
