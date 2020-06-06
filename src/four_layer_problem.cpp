@@ -14,10 +14,10 @@ using namespace std;
 vector<MatrixXd> generateData()
 {
 
-  srand(2);                  // seed the random number generator to get the same data each time
+  srand(2);            // seed the random number generator to get the same data each time
   const int bit = 12;
   const int num_of_training_data = 500;
-  unsigned int max_num = pow(2, bit);  // maximum number that can be stored given the bit size
+  unsigned int max_num = pow(2, bit);    // maximum number that can be stored given the bit size
   
   Matrix<double, num_of_training_data, bit * 2> input;
   Matrix<double, num_of_training_data, bit> target;
@@ -53,9 +53,13 @@ vector<vector<phiFuncType>> generatePhis(NeuralNetwork& network, const MatrixXd&
 
   vector<vector<phiFuncType>> phis;
   int max_iter = serialized? my_input.rows() : 1;
+
+  // loop through the grids
   for (int i = 0; i < max_level; i++)
   {
     vector<phiFuncType> row_phis;
+
+    // loop through the individual phi values for each grid
     for (int j = 0; j < max_iter; j++)
     {
       // set the training input and target for the nn
@@ -84,14 +88,14 @@ vector<vector<phiFuncType>> generatePhis(NeuralNetwork& network, const MatrixXd&
 int main(int argc, char* argv[])
 {
   
-  const int N = 6400;                         // Number of training steps
-  const int m = 2;                          // Coarsening factor
-  const int max_level = 10;                  // The maximum level the MGRIT algorithm recurses to
-  const float alpha_b = 0.025;                // The learning rate of the neural network on the fine grid
-  const float alpha_max = 0.2;              // The maximum learning rate the algorithm can increase to on the coarse grids
+  const int N = 100;                       // Number of training steps
+  const int m = 2;                         // Coarsening factor
+  const int max_level = 10;                // The maximum level the MGRIT algorithm recurses to
+  const float alpha_b = 0.025;             // The learning rate of the neural network on the fine grid
+  const float alpha_max = 0.2;             // The maximum learning rate the algorithm can increase to on the coarse grids
   const bool serialized_training = true;   // If true, the nn trains in a serial fashion, otherwise it trains in a batch fashion
   const bool f_cycles = true;              // Determine whether to run F cycles (if false, the algorithm runs V cycles)
-  const bool display_output = true;         // Displays stats about the MGRIT algorithm as it is running
+  const bool display_output = true;        // Displays stats about the MGRIT algorithm as it is running
 
   // construct the nn
   vector<MatrixXd> generatedData = generateData();
@@ -110,19 +114,5 @@ int main(int argc, char* argv[])
   // construct the MGRIT solver and run it
   MGRITSolver solver(m, phis, max_level, display_output);
   listOfWeights MGRIT_weights = solver.run(initial_weights, rhs, pow(10, -9) * sqrt(N+1), f_cycles);
-
-  weightType MGRIT_last_weights = MGRIT_weights[MGRIT_weights.size()-1];
-  MatrixXd MGRIT_last_weight = MGRIT_last_weights[MGRIT_last_weights.size()-1].row(53);
-  cout << MGRIT_last_weight << endl;
-
-  four_layer_nn.setWeights(rhs[0]);
-
-  for (int i = 0; i < N; i++)
-  {
-    serialized_training? four_layer_nn.train(input.row(i % input.rows()), target.row(i % target.rows())) : four_layer_nn.train(input, target);
-  }
-
-  MatrixXd last_weight = four_layer_nn.getWeights()[four_layer_nn.getWeights().size()-1].row(53);
-  cout << last_weight << endl;
 
 }

@@ -18,7 +18,7 @@ void testVectors(vector<T> actual_values, vector<T> expected_values)
 }
 
 template <typename T>
-void testListOfVectors(vector<vector<T> > actual_values, vector< vector<T> > expected_values)
+void testListOfVectors(vector<vector<T>> actual_values, vector< vector<T>> expected_values)
 {
 	for (int i = 0; i < actual_values.size(); i++)
 	{

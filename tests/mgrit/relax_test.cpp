@@ -13,11 +13,11 @@ class RelaxTest : public testing::Test {
   const phiFuncType mult_2 = [](const weightType& input) 
   {
     weightType output = input;
-	for (int i = 0; i < input.size(); i++)
-	{
-		output[i] *= 2.0;
-	}
-	return output;
+	  for (int i = 0; i < input.size(); i++)
+	  {
+		  output[i] *= 2.0;
+	  }
+	  return output;
   };
 
   const phiFuncType mult_3 = [](const weightType& input) 
@@ -28,7 +28,7 @@ class RelaxTest : public testing::Test {
         output[i] *= 3.0;
     }
     return output;
-   };
+  };
 
   Relax relax1{m1, {mult_2}};
   Relax relax2{m2, {mult_3}};
@@ -45,24 +45,24 @@ class RelaxTest : public testing::Test {
     // initialize the weights that will be propogated using the phi functions above
     Matrix<double, 2, 3> test_weights_1;
     Matrix<double, 1, 1> test_weights_2;
-	test_weights_1 << 4.5, 3, 2,
+	  test_weights_1 << 4.5, 3, 2,
                       8, 1, -.5;
     test_weights_2 << -3;
     test_weights = {test_weights_1, test_weights_2};
 
-	// initialize the list of weights for the relaxation tests
-	weightType zeros = {MatrixXd::Zero(2,3), MatrixXd::Zero(1,1)};
-	for (int i = 0; i < input_size; i++)
+	  // initialize the list of weights for the relaxation tests
+	  weightType zeros = {MatrixXd::Zero(2,3), MatrixXd::Zero(1,1)};
+	  for (int i = 0; i < input_size; i++)
     {
-        i % 3 == 0 ? input.push_back(test_weights) : input.push_back(zeros);
+      i % 3 == 0 ? input.push_back(test_weights) : input.push_back(zeros);
     }
 
-	// initialize the rhs for relaxation tests
-	weightType random_weights = {MatrixXd::Random(2,3), MatrixXd::Random(1,1)};
-	for (int i = 0; i < input_size; i++)
-	{
-		i % 2 == 0 ? rhs.push_back(random_weights) : rhs.push_back(zeros);
-	}
+	  // initialize the rhs for relaxation tests
+	  weightType random_weights = {MatrixXd::Random(2,3), MatrixXd::Random(1,1)};
+	  for (int i = 0; i < input_size; i++)
+	  {
+		  i % 2 == 0 ? rhs.push_back(random_weights) : rhs.push_back(zeros);
+	  }
 
   }
 
@@ -202,7 +202,7 @@ TEST_F(RelaxTest, SetPhi){
     testVectors(phi_output, mult_2_output);
 
     // give the relax class a new phi and test to make sure the new phi is set correctly
-	relax1.setPhi({mult_3});
+	  relax1.setPhi({mult_3});
     phi_output = relax1.getPhi()[0](test_weights);
     weightType mult_3_output = mult_3(test_weights);
     testVectors(phi_output, mult_3_output);

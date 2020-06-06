@@ -62,6 +62,8 @@ TEST_F(NeuralNetworkTest, SetWeights){
 TEST_F(NeuralNetworkTest, TrainBatchSigmoidActivation){
     
     // ensure the nn is initialized properly
+    float nn_alpha = nn1.getAlpha();
+    ASSERT_EQ(nn_alpha, alpha) << "The NN alpha " << nn_alpha << " is not equal to " << alpha;
     weightType nn_weights = nn1.getWeights();
     testVectors(nn_weights, weights);
 

@@ -15,7 +15,7 @@ class MGRITHelperTest : public testing::Test {
 		output[i] *= 2.0;
 	}
 	return output;
-   };
+  };
 
   const phiFuncType mult_3 = [](const weightType& input) 
   {
@@ -25,16 +25,16 @@ class MGRITHelperTest : public testing::Test {
 		output[i] *= 3.0;
 	}
 	return output;
-   };
+  };
 
-   MGRITHelper helper{{mult_2}};
+  MGRITHelper helper{{mult_2}};
    
-   const unsigned int input_size = 50;
-   weightType test_weights;
-   listOfWeights input;
+  const unsigned int input_size = 50;
+  weightType test_weights;
+  listOfWeights input;
 
-   // setup test input to be used
-   void SetUp() override 
+  // setup test input to be used
+  void SetUp() override 
    {
 
      Matrix<double, 2, 3> test_weights_1;

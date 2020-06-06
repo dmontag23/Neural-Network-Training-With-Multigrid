@@ -82,24 +82,24 @@ void testRun(const NeuralNetwork& nn, const MatrixXd& nn_input, const MatrixXd& 
 
 	// construct the expected output
 	unsigned int input_size = input.size() - 1;
-    listOfWeights expected_output = trainNN(nn, input_size, nn_input, nn_target);
+  listOfWeights expected_output = trainNN(nn, input_size, nn_input, nn_target);
 
-    // setup the MGRIT algorithm
-    // construct the rhs
-    listOfWeights rhs = input;
+  // setup the MGRIT algorithm
+  // construct the rhs
+  listOfWeights rhs = input;
 
-    // set the tolerance to use for convergence
-    double tol = pow(10, -9) * sqrt(input_size + 1);
-    listOfWeights actual_output = solver1.run(input, rhs, tol, f_iteration);
+  // set the tolerance to use for convergence
+  double tol = pow(10, -9) * sqrt(input_size + 1);
+  listOfWeights actual_output = solver1.run(input, rhs, tol, f_iteration);
 
-    // compute the final residuals to ensure they are below the tolerance
-    listOfWeights final_residuals = helper1.addOrSubtract(rhs, helper1.matMultiply(actual_output), minus<MatrixXd>());
-    double residual_norm = helper1.euclideanNorm(final_residuals);
-    ASSERT_TRUE(residual_norm < tol) << "The norm of the residual " << residual_norm << " is not less than " << tol;    
+  // compute the final residuals to ensure they are below the tolerance
+  listOfWeights final_residuals = helper1.addOrSubtract(rhs, helper1.matMultiply(actual_output), minus<MatrixXd>());
+  double residual_norm = helper1.euclideanNorm(final_residuals);
+  ASSERT_TRUE(residual_norm < tol) << "The norm of the residual " << residual_norm << " is not less than " << tol;    
 
-    // ensure the actual and expected arrays are close to the same by checking their norms
-    double diff_norm = abs(helper1.euclideanNorm(actual_output) - helper1.euclideanNorm(actual_output));
-    ASSERT_TRUE(diff_norm < tol) << "The difference of the norms between the actual and expected output " << diff_norm << " is not less than " << tol;
+  // ensure the actual and expected arrays are close to the same by checking their norms
+  double diff_norm = abs(helper1.euclideanNorm(actual_output) - helper1.euclideanNorm(actual_output));
+  ASSERT_TRUE(diff_norm < tol) << "The difference of the norms between the actual and expected output " << diff_norm << " is not less than " << tol;
 
 }
 
@@ -180,16 +180,16 @@ TEST_F(MGRITSolverTest, SetMaxLevel){
 
 TEST_F(MGRITSolverTest, SetPhis){
 
-    // ensure the MGRITSolver class is initialized properly
-    weightType phi_1_expected_output = phi1(test_weights);
-    weightType phi_2_expected_output = phi2(test_weights);
-    vector<vector<phiFuncType>> phis = solver1.getPhis();
-    weightType phi_1_actual_output = phis[0][0](test_weights);
-    weightType phi_2_actual_output = phis[1][0](test_weights);
-    testVectors(phi_1_actual_output, phi_1_expected_output);
-    testVectors(phi_2_actual_output, phi_2_expected_output);
+  // ensure the MGRITSolver class is initialized properly
+  weightType phi_1_expected_output = phi1(test_weights);
+  weightType phi_2_expected_output = phi2(test_weights);
+  vector<vector<phiFuncType>> phis = solver1.getPhis();
+  weightType phi_1_actual_output = phis[0][0](test_weights);
+  weightType phi_2_actual_output = phis[1][0](test_weights);
+  testVectors(phi_1_actual_output, phi_1_expected_output);
+  testVectors(phi_2_actual_output, phi_2_expected_output);
 
-    // give the MGRITSolver class a new set of phis and test to make sure the new phis are set correctly
+  // give the MGRITSolver class a new set of phis and test to make sure the new phis are set correctly
 	const phiFuncType mult_2 = [](const weightType& input) 
 	{
 		weightType output = input;
@@ -216,10 +216,10 @@ TEST_F(MGRITSolverTest, SetPhis){
 	vector<vector<phiFuncType>> new_phis = {{mult_2}, {mult_3}};
 	solver1.setPhis(new_phis);
 	phis = solver1.getPhis();
-    phi_1_actual_output = phis[0][0](test_weights);
-    phi_2_actual_output = phis[1][0](test_weights);
-    testVectors(phi_1_actual_output, phi_1_expected_output);
-    testVectors(phi_2_actual_output, phi_2_expected_output);
+  phi_1_actual_output = phis[0][0](test_weights);
+  phi_2_actual_output = phis[1][0](test_weights);
+  testVectors(phi_1_actual_output, phi_1_expected_output);
+  testVectors(phi_2_actual_output, phi_2_expected_output);
 
 }
 
@@ -232,10 +232,10 @@ TEST_F(MGRITSolverTest, VIteration2Levels){
 
 TEST_F(MGRITSolverTest, VIteration10Levels){
 
-    const unsigned int max_level = 10;
+  const unsigned int max_level = 10;
 	vector<vector<phiFuncType>> phis(max_level, {phi1});
-    solver1.setMaxLevel(max_level);
-    solver1.setPhis(phis);
+  solver1.setMaxLevel(max_level);
+  solver1.setPhis(phis);
 	testRun(testNN, nn_input, target, solver1, helper1, input, false);
 
 }
@@ -249,10 +249,10 @@ TEST_F(MGRITSolverTest, FIteration2Levels){
 
 TEST_F(MGRITSolverTest, FIteration10Levels){
 
-    const unsigned int max_level = 10;
+  const unsigned int max_level = 10;
 	vector<vector<phiFuncType>> phis(max_level, {phi1});
-    solver1.setMaxLevel(max_level);
-    solver1.setPhis(phis);
+  solver1.setMaxLevel(max_level);
+  solver1.setPhis(phis);
 	testRun(testNN, nn_input, target, solver1, helper1, input, true);
 
 }
