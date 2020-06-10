@@ -8,6 +8,8 @@ In order to use this code, you must have a g++ compiler installed on your system
 - Eigen Version 3.3 or higher [found here](http://eigen.tuxfamily.org/index.php?title=Main_Page#Download)
 - Googletest Version 1.10 or higher [found here](https://github.com/google/googletest)
 
+Note that, in order for the code to work correctly, these packages need to be installed in such a way that they are avaliable to all projects on the operating system. For example, it is recommended to install the Eigen package using Cmake as described in the INSTALL file provided by Eigen. Similarly, [this article](https://www.srcmake.com/home/google-cpp-test-framework) describes how to install the Googletest Framework in the libraries folder on Ubuntu, which ensures that it can be used by any project.
+
 ## Downloading and Compiling the Code
 In order to use this code, clone or download the reposity into a directory of your choice. Create a *build* directory and then execute the following commands from that directory:
 
