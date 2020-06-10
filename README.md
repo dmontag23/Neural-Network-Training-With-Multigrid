@@ -9,7 +9,7 @@ In order to use this code, you must have a g++ compiler installed on your system
 - Googletest Version 1.10 or higher [found here](https://github.com/google/googletest)
 
 ## Downloading and Compiling the Code
-In order to use this code, clone the reposity into a directory of your choice. Create a *build* directory and then execute the following commands from that directory:
+In order to use this code, clone or download the reposity into a directory of your choice. Create a *build* directory and then execute the following commands from that directory:
 
 ```
 cmake ..
