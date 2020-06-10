@@ -35,6 +35,6 @@ const bool f_cycles = true;               // Determine whether to run F cycles (
 const bool display_output = true;         // Displays stats about the MGRIT algorithm as it is running
 ```
 
-These are the parameters that need to be changed in order to run different test cases. For instance, the example above uses the MGRIT algorithm to train a neural network 100 times in a serialized manner with 10 grids. Each grid has half the number of nodes as the previous grid (since the coarsening factor is 2). The learning rate on the fine grid is 0.1, which doubles on each successive fine grid until it reaches or exceeds 30 and the algorithm uses F-cycles as its method of recursion (this example corresponds to Table 7 from my project report - for more details see [this report](docs/Multigrid_Project_Report.pdf)).
+These are the parameters that need to be changed in order to run different test cases. For instance, the example above uses the MGRIT algorithm to train a neural network 100 times in a serialized manner with 10 grids. Each grid has half the number of nodes as the previous grid (since the coarsening factor is 2). The learning rate on the fine grid is 0.1, which doubles on each successive fine grid until it reaches or exceeds 30 and the algorithm uses F-cycles as its method of recursion (this example corresponds to Table 7 from [this report](docs/Multigrid_Project_Report.pdf)).
 
 Once you have changed these parameters, save your changes and navigate to your build directory. Run `make` to recompile the code. Then run the new executable.
